@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="levelEndWin">"Поздравляем, уровень пройден!\n
+        Выигрыш забрал:</string>
+    <string name="levelEndLose">"Уровень не пройден!\n
+        Попробуйте снова.</string>
+</resources>
