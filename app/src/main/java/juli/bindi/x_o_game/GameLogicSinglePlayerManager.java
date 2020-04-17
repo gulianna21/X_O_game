@@ -8,22 +8,24 @@ public class GameLogicSinglePlayerManager extends CommonGameLogic {
 
     public void game(int numberButton) {
         if (countStep % 2 == 0) {
+            setValueMass(massMain, numberButton - 1, X);
             updateText(X, numberButton);
             checkWinEnd(X);
         } else {
+            setValueMass(massMain, numberButton - 1, O);
             updateText(O, numberButton);
             checkWinEnd(O);
         }
-        setValueMass(massMain, numberButton - 1);
         enabledButton(numberButton);
         countStep++;
     }
 
-    private void setValueMass(String[][] mass, int position) {
+    private void setValueMass(String[][] mass, int position, String s) {
         for (int i = 0; i < mass.length; i++) {
             for (int j = 0; j < mass.length; j++) {
                 if (i * 3 + j == position) {
-                    mass[i][j] = X;
+                    mass[i][j] = s;
+                    return;
                 }
             }
         }

@@ -43,7 +43,7 @@ abstract class CommonGameLogic {
         String check = mass[0];
         for (int i = 1; i < mass.length; i++) {
             if (mass[i] != null) {
-                if (!mass[i].equals(check))
+                if (mass[i]!=check)
                     return false;
             } else return false;
         }
@@ -58,7 +58,7 @@ abstract class CommonGameLogic {
                 continue;
             } else {
                 for (int j = 1; j < mass.length; j++) {
-                    if (!mass[j][i].equals(check)) {
+                    if (mass[j][i]!=check) {
                         checkNumber = false;
                         break;
                     }
@@ -76,7 +76,7 @@ abstract class CommonGameLogic {
         String check = mass[0][0];
         for (int i = 0; i < mass.length; i++) {
             if (mass[i][i] != null) {
-                if (!mass[i][i].equals(check)) {
+                if (mass[i][i]!=check) {
                     return false;
                 }
             } else return false;
@@ -88,7 +88,7 @@ abstract class CommonGameLogic {
         String check = mass[0][mass.length - 1];
         for (int i = 0; i < mass.length; i++) {
             if (mass[i][mass.length - 1 - i] != null) {
-                if (!mass[i][mass.length - 1 - i].equals(check)) {
+                if (mass[i][mass.length - 1 - i]!=check) {
                     return false;
                 }
             } else return false;

@@ -34,8 +34,8 @@ public class GamePlayerActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_field);
-        mGameMode = getIntent().getBooleanExtra(GAME_MODE, true);
 
+        mGameMode = getIntent().getBooleanExtra(GAME_MODE, true);
 
         Button button_back = findViewById(R.id.button_back);
         button_back.setOnClickListener(new View.OnClickListener() {
