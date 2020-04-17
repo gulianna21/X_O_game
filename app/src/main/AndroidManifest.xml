@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GamePlayer"
+            android:name=".GamePlayerActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

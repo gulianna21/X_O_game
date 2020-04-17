@@ -25,23 +25,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent intent = new Intent(getBaseContext(), GamePlayer.class);
+                    Intent intent = new Intent(getBaseContext(), GamePlayerActivity.class);
+                    intent.putExtra(GamePlayerActivity.GAME_MODE, true);
                     startActivity(intent);
                 } catch (Exception e) {
                 }
             }
         });
 
-        /*buttonTwo.setOnClickListener(new View.OnClickListener() {
+        buttonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent intent = new Intent(getBaseContext(), GameSinglePlayer.class);
+                    Intent intent = new Intent(getBaseContext(), GamePlayerActivity.class);
+                    intent.putExtra(GamePlayerActivity.GAME_MODE, false);
                     startActivity(intent);
                 } catch (Exception e) {
                 }
             }
-        });*/
+        });
     }
     //Системная кнопка "Назад" начало
     @Override

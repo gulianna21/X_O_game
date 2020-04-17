@@ -1,27 +1,33 @@
 package juli.bindi.x_o_game;
 
-public abstract class CommonGameLogic {
+abstract class CommonGameLogic {
 
-    public String[][] massMain = new String[3][3];
+    int countStep = 0;
+    final String X = "X";
+    final String O = "O";
 
-    public OnPathButtonStateChangeCallback callback;
+    String[][] massMain = new String[3][3];
+
+    OnPathButtonStateChangeCallback callback;
     void setCallback(OnPathButtonStateChangeCallback callback) {
         this.callback = callback;
     }
 
-    public boolean IsFull(String[][] mass) {
-        for (int i = 0; i < mass.length; i++) {
+    public abstract void onButtonClick(int number);
+
+    private boolean IsFull(String[][] mass) {
+        for (String[] strings : mass) {
             for (int j = 0; j < mass.length; j++) {
-                if (mass[i][j] == null)
+                if (strings[j] == null)
                     return false;
             }
         }
         return true;
     }
 
-    public boolean checkWin(String[][] mass) {
-        for (int i = 0; i < mass.length; i++) {
-            if (findString(mass[i]))
+    private boolean checkWin(String[][] mass) {
+        for (String[] strings : mass) {
+            if (findString(strings))
                 return true;
         }
         if (findUp(mass))
@@ -33,18 +39,18 @@ public abstract class CommonGameLogic {
         return false;
     }
 
-    public static boolean findString(String[] mass) {
+    private static boolean findString(String[] mass) {
         String check = mass[0];
         for (int i = 1; i < mass.length; i++) {
             if (mass[i] != null) {
-                if (mass[i] != check)
+                if (!mass[i].equals(check))
                     return false;
             } else return false;
         }
         return true;
     }
 
-    public static boolean findUp(String[][] mass) {
+    private static boolean findUp(String[][] mass) {
         for (int i = 0; i < mass.length; i++) {
             boolean checkNumber = true;
             String check = mass[0][i];
@@ -52,7 +58,7 @@ public abstract class CommonGameLogic {
                 continue;
             } else {
                 for (int j = 1; j < mass.length; j++) {
-                    if (mass[j][i] != check) {
+                    if (!mass[j][i].equals(check)) {
                         checkNumber = false;
                         break;
                     }
@@ -66,11 +72,11 @@ public abstract class CommonGameLogic {
 
     }
 
-    public static boolean findDiagonalLeft(String[][] mass) {
+    private static boolean findDiagonalLeft(String[][] mass) {
         String check = mass[0][0];
         for (int i = 0; i < mass.length; i++) {
             if (mass[i][i] != null) {
-                if (mass[i][i] != check) {
+                if (!mass[i][i].equals(check)) {
                     return false;
                 }
             } else return false;
@@ -78,11 +84,11 @@ public abstract class CommonGameLogic {
         return true;
     }
 
-    public static boolean findDiagonalRight(String[][] mass) {
+    private static boolean findDiagonalRight(String[][] mass) {
         String check = mass[0][mass.length - 1];
         for (int i = 0; i < mass.length; i++) {
             if (mass[i][mass.length - 1 - i] != null) {
-                if (mass[i][mass.length - 1 - i] != check) {
+                if (!mass[i][mass.length - 1 - i].equals(check)) {
                     return false;
                 }
             } else return false;
@@ -90,7 +96,7 @@ public abstract class CommonGameLogic {
         return true;
     }
 
-    public void checkWinEnd(String text) {
+    void checkWinEnd(String text) {
         if (checkWin(massMain)) {
             callback.showGameDialog(text, true);
         }

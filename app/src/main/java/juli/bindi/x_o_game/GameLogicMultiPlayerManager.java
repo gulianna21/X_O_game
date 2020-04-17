@@ -2,10 +2,6 @@ package juli.bindi.x_o_game;
 
 public class GameLogicMultiPlayerManager extends CommonGameLogic {
 
-    private int countStep = 0;
-    private String X = "X";
-    private String O = "O";
-
     public void onButtonClick(int number) {
         game(number);
     }
@@ -117,7 +113,7 @@ public class GameLogicMultiPlayerManager extends CommonGameLogic {
         for (int i = 0; i < mass.length; i++) {
             for (int j = 0; j < mass.length; j++) {
                 if ((i * 3 + j) == generateNumber && mass[i][j] == null) {
-                    mass[i][j] = "O";
+                    mass[i][j] = O;
                     return true;
                 }
             }
