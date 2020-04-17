@@ -1,15 +1,9 @@
 package juli.bindi.x_o_game;
 
 public class GameLogicSinglePlayerManager extends CommonGameLogic {
-    private OnPathButtonStateChangeCallback callback;
-    private String[][] massMain = new String[3][3];
+
     private int countStep = 0;
     private String start = "X";
-
-
-    void setCallback(OnPathButtonStateChangeCallback callback) {
-        this.callback = callback;
-    }
 
     public void onButtonClick(int number) {
         switch (number) {
@@ -85,15 +79,6 @@ public class GameLogicSinglePlayerManager extends CommonGameLogic {
                 checkWinEnd(start);
                 updateStart();
                 break;
-        }
-    }
-
-    public void checkWinEnd(String text) {
-        if (checkWin(massMain)) {
-            callback.showGameDialog(text, true);
-        }
-        if (IsFull(massMain)) {
-            callback.showGameDialog(text, false);
         }
     }
 

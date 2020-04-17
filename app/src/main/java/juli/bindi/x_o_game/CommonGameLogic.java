@@ -2,6 +2,13 @@ package juli.bindi.x_o_game;
 
 public abstract class CommonGameLogic {
 
+    public String[][] massMain = new String[3][3];
+
+    public OnPathButtonStateChangeCallback callback;
+    void setCallback(OnPathButtonStateChangeCallback callback) {
+        this.callback = callback;
+    }
+
     public boolean IsFull(String[][] mass) {
         for (int i = 0; i < mass.length; i++) {
             for (int j = 0; j < mass.length; j++) {
@@ -81,5 +88,14 @@ public abstract class CommonGameLogic {
             } else return false;
         }
         return true;
+    }
+
+    public void checkWinEnd(String text) {
+        if (checkWin(massMain)) {
+            callback.showGameDialog(text, true);
+        }
+        if (IsFull(massMain)) {
+            callback.showGameDialog(text, false);
+        }
     }
 }

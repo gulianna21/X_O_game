@@ -25,7 +25,8 @@ public class GamePlayer extends AppCompatActivity implements View.OnClickListene
     TextView buttonText8;
     TextView buttonText9;
 
-    GameLogicSinglePlayerManager logicManager;
+    GameLogicSinglePlayerManager logicSinglePlayerManager;
+    GameLogicMultiPlayerManager logicMultiPlayerManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +66,11 @@ public class GamePlayer extends AppCompatActivity implements View.OnClickListene
         buttonText8.setOnClickListener(this);
         buttonText9.setOnClickListener(this);
 
-        logicManager = new GameLogicSinglePlayerManager();
-        logicManager.setCallback(this);
+        logicSinglePlayerManager = new GameLogicSinglePlayerManager();
+        logicSinglePlayerManager.setCallback(this);
+
+        logicMultiPlayerManager = new GameLogicMultiPlayerManager();
+        logicMultiPlayerManager.setCallback(this);
     }
 
     @Override
@@ -191,31 +195,31 @@ public class GamePlayer extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.textView1:
-                logicManager.onButtonClick(1);
+                logicSinglePlayerManager.onButtonClick(1);
                 break;
             case R.id.textView2:
-                logicManager.onButtonClick(2);
+                logicSinglePlayerManager.onButtonClick(2);
                 break;
             case R.id.textView3:
-                logicManager.onButtonClick(3);
+                logicSinglePlayerManager.onButtonClick(3);
                 break;
             case R.id.textView4:
-                logicManager.onButtonClick(4);
+                logicSinglePlayerManager.onButtonClick(4);
                 break;
             case R.id.textView5:
-                logicManager.onButtonClick(5);
+                logicSinglePlayerManager.onButtonClick(5);
                 break;
             case R.id.textView6:
-                logicManager.onButtonClick(6);
+                logicSinglePlayerManager.onButtonClick(6);
                 break;
             case R.id.textView7:
-                logicManager.onButtonClick(7);
+                logicSinglePlayerManager.onButtonClick(7);
                 break;
             case R.id.textView8:
-                logicManager.onButtonClick(8);
+                logicSinglePlayerManager.onButtonClick(8);
                 break;
             case R.id.textView9:
-                logicManager.onButtonClick(9);
+                logicSinglePlayerManager.onButtonClick(9);
                 break;
         }
     }
