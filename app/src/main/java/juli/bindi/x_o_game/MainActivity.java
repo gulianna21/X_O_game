@@ -25,12 +25,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent intent = new Intent(MainActivity.this, GameSinglePlayer.class);
+                    Intent intent = new Intent(getBaseContext(), GamePlayer.class);
                     startActivity(intent);
                 } catch (Exception e) {
                 }
             }
         });
+
+        /*buttonTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent intent = new Intent(getBaseContext(), GameSinglePlayer.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                }
+            }
+        });*/
     }
     //Системная кнопка "Назад" начало
     @Override

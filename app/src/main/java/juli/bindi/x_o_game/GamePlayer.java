@@ -1,14 +1,19 @@
 package juli.bindi.x_o_game;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GameSinglePlayer extends AppCompatActivity implements View.OnClickListener, OnPathButtonStateChangeCallback {
+public class GamePlayer extends AppCompatActivity implements View.OnClickListener, OnPathButtonStateChangeCallback {
 
     TextView buttonText1;
     TextView buttonText2;
@@ -20,7 +25,7 @@ public class GameSinglePlayer extends AppCompatActivity implements View.OnClickL
     TextView buttonText8;
     TextView buttonText9;
 
-    GameLogicManager logicManager;
+    GameLogicSinglePlayerManager logicManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +37,14 @@ public class GameSinglePlayer extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View v) {
                 try {
-                    Intent intent = new Intent(GameSinglePlayer.this, MainActivity.class);
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
                 }
             }
         });
+
         buttonText1 = findViewById(R.id.textView1);
         buttonText2 = findViewById(R.id.textView2);
         buttonText3 = findViewById(R.id.textView3);
@@ -59,7 +65,7 @@ public class GameSinglePlayer extends AppCompatActivity implements View.OnClickL
         buttonText8.setOnClickListener(this);
         buttonText9.setOnClickListener(this);
 
-        logicManager = new GameLogicManager();
+        logicManager = new GameLogicSinglePlayerManager();
         logicManager.setCallback(this);
     }
 
@@ -142,8 +148,48 @@ public class GameSinglePlayer extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
+    public void showGameDialog(String text, boolean bool) {
+        //вызов диалогового окна в конце игры:
+        final Dialog dialogEnd = new Dialog(this);
+        dialogEnd.requestWindowFeature(Window.FEATURE_NO_TITLE);// скрываем заголовок
+        dialogEnd.setContentView(R.layout.dialogend);//путь к макету диалогового окна
+        dialogEnd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));// прозрачный фон дмалогового окна
+        dialogEnd.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT);
+        dialogEnd.setCancelable(false); // окно нельзя закрыть системной кнопкой назад
+
+        Button btnContinue = dialogEnd.findViewById(R.id.btncontinue);
+        TextView buttonText = dialogEnd.findViewById(R.id.textdescriptionEnd); // основной текст в диалоге
+
+        if (bool) {
+            buttonText.setText(R.string.levelEndWin);
+            btnContinue.setText(text);
+        } else {
+            buttonText.setText(R.string.levelEndLose);
+            btnContinue.setText("");
+        }
+        // кнопка, которая закрывает диалоговое окно начало
+        TextView btnClose = dialogEnd.findViewById(R.id.btncloses);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    // вернуться назад к выбору уровня
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                }
+                dialogEnd.dismiss();//закрываем диалоговое окно
+            }
+        });
+
+        dialogEnd.show();
+    }
+
+    @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.textView1:
                 logicManager.onButtonClick(1);
                 break;

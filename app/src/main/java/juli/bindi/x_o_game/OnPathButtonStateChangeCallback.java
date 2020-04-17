@@ -11,4 +11,6 @@ public interface OnPathButtonStateChangeCallback {
     void onTextUpdate7(String text);
     void onTextUpdate8(String text);
     void onTextUpdate9(String text);
+
+    void showGameDialog(String text, boolean bool);
 }
