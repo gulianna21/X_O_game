@@ -7,21 +7,32 @@ public class GameLogicMultiPlayerManager extends CommonGameLogic {
     }
 
     public void game(int numberButton) {
-        int numberGenerate = -1;
-        if (countStep % 2 == 1) {
-            numberGenerate = generate(massMain);
-        }
-        if (numberGenerate != -1) {
+
+        updateText(X, numberButton);
+        setValueMass(massMain, numberButton - 1);
+        enabledButton(numberButton);
+
+        if (checkVolumeMass(massMain)) {
+            int numberGenerate = generate(massMain);
             updateText(O, numberGenerate + 1);
             enabledButton(numberGenerate + 1);
             checkWinEnd(O);
-        } else {
-            updateText(X, numberButton);
-            setValueMass(massMain, numberButton - 1);
-            enabledButton(numberButton);
-            checkWinEnd(X);
         }
-        countStep++;
+        checkWinEnd(X);
+    }
+
+    private boolean checkVolumeMass(String[][] mass) {
+        int count = 0;
+        for (int i = 0; i < mass.length; i++) {
+            for (int j = 0; j < mass.length; j++) {
+                if (mass[i][j] == null)
+                    count++;
+            }
+        }
+        if (count > 1) {
+            return true;
+        }
+        return false;
     }
 
     private void setValueMass(String[][] mass, int position) {
@@ -101,7 +112,7 @@ public class GameLogicMultiPlayerManager extends CommonGameLogic {
     public int generate(String[][] mass) {
         int generateNumber;
         while (true) {
-            generateNumber = (int) Math.random() * 9;
+            generateNumber = (int) (Math.random() * 9);
             if (setNumber(mass, generateNumber)) {
                 break;
             }
