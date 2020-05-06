@@ -70,7 +70,7 @@ public class GamePlayerActivity extends AppCompatActivity implements View.OnClic
         buttonText8.setOnClickListener(this);
         buttonText9.setOnClickListener(this);
 
-        logicManager = mGameMode ? new GameLogicSinglePlayerManager() : new GameLogicMultiPlayerManager();
+        logicManager = mGameMode ? new GameLogic_SinglePlayerManager() : new GameLogic_MultiPlayerManager();
         logicManager.setCallback(this);
     }
 
@@ -171,8 +171,9 @@ public class GamePlayerActivity extends AppCompatActivity implements View.OnClic
             btnContinue.setText(text);
         } else {
             buttonText.setText(R.string.levelEndLose);
-            btnContinue.setText("");
+            btnContinue.setVisibility(View.INVISIBLE);
         }
+
         // кнопка, которая закрывает диалоговое окно начало
         TextView btnClose = dialogEnd.findViewById(R.id.btncloses);
         btnClose.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +189,6 @@ public class GamePlayerActivity extends AppCompatActivity implements View.OnClic
                 dialogEnd.dismiss();//закрываем диалоговое окно
             }
         });
-
         dialogEnd.show();
     }
 

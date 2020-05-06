@@ -18,10 +18,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonOne = findViewById(R.id.button);
-        Button buttonTwo = findViewById(R.id.button2);
+        Button buttonSinglePlayer = findViewById(R.id.button);
+        Button buttonMultiPlayer = findViewById(R.id.button2);
 
-        buttonOne.setOnClickListener(new View.OnClickListener() {
+        buttonSinglePlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonTwo.setOnClickListener(new View.OnClickListener() {
+        buttonMultiPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {

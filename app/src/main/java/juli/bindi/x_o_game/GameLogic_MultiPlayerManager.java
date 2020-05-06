@@ -1,45 +1,31 @@
 package juli.bindi.x_o_game;
 
-public class GameLogicMultiPlayerManager extends CommonGameLogic {
+public class GameLogic_MultiPlayerManager extends CommonGameLogic {
 
     public void onButtonClick(int number) {
         game(number);
     }
 
     public void game(int numberButton) {
-
-        updateText(X, numberButton);
-        setValueMass(massMain, numberButton - 1);
-        enabledButton(numberButton);
-
-        if (checkVolumeMass(massMain)) {
-            int numberGenerate = generate(massMain);
-            updateText(O, numberGenerate + 1);
-            enabledButton(numberGenerate + 1);
+        if (countStep % 2 == 0) {
+            setValueMass(massMain, numberButton - 1, X);
+            updateText(X, numberButton);
+            checkWinEnd(X);
+        } else {
+            setValueMass(massMain, numberButton - 1, O);
+            updateText(O, numberButton);
             checkWinEnd(O);
         }
-        checkWinEnd(X);
+        enabledButton(numberButton);
+        countStep++;
     }
 
-    private boolean checkVolumeMass(String[][] mass) {
-        int count = 0;
-        for (int i = 0; i < mass.length; i++) {
-            for (int j = 0; j < mass.length; j++) {
-                if (mass[i][j] == null)
-                    count++;
-            }
-        }
-        if (count > 1) {
-            return true;
-        }
-        return false;
-    }
-
-    private void setValueMass(String[][] mass, int position) {
+    private void setValueMass(String[][] mass, int position, String s) {
         for (int i = 0; i < mass.length; i++) {
             for (int j = 0; j < mass.length; j++) {
                 if (i * 3 + j == position) {
-                    mass[i][j] = X;
+                    mass[i][j] = s;
+                    return;
                 }
             }
         }
@@ -107,28 +93,5 @@ public class GameLogicMultiPlayerManager extends CommonGameLogic {
                 callback.onButtonStateChanged(false, R.id.textView9);
                 break;
         }
-    }
-
-    public int generate(String[][] mass) {
-        int generateNumber;
-        while (true) {
-            generateNumber = (int) (Math.random() * 9);
-            if (setNumber(mass, generateNumber)) {
-                break;
-            }
-        }
-        return generateNumber;
-    }
-
-    private boolean setNumber(String[][] mass, int generateNumber) {
-        for (int i = 0; i < mass.length; i++) {
-            for (int j = 0; j < mass.length; j++) {
-                if ((i * 3 + j) == generateNumber && mass[i][j] == null) {
-                    mass[i][j] = O;
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }
