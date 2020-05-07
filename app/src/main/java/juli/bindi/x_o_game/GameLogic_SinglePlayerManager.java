@@ -24,58 +24,54 @@ public class GameLogic_SinglePlayerManager extends CommonGameLogic {
     }
 
     private void blockWin(String[][] mass, int a) {
-
         int number = checkString(mass);
         if (number != a) {
-            setNumber(mass, number);
-            updateText(O, number + 1);
-            enabledButton(number + 1);
+            installVolume(mass, number);
             return;
         }
-
         int numberUp = checkUp(mass);
         if (numberUp != a) {
-            setNumber(mass, numberUp);
-            updateText(O, numberUp + 1);
-            enabledButton(numberUp + 1);
+            installVolume(mass, numberUp);
             return;
         }
-
         int numberDiagonal = checkDiagonal(mass);
         if (numberDiagonal != a) {
-            setNumber(mass, numberDiagonal);
-            updateText(O, numberDiagonal + 1);
-            enabledButton(numberDiagonal + 1);
+            installVolume(mass, numberDiagonal);
             return;
         }
-
         int numberGenerate = generate(massMain);
         updateText(O, numberGenerate + 1);
         enabledButton(numberGenerate + 1);
         checkWinEnd(O);
     }
 
-    private static int checkString(String[][] mass) {
+    private void installVolume(String[][] mass, int number) {
+        setNumber(mass, number);
+        updateText(O, number + 1);
+        enabledButton(number + 1);
+    }
+
+    private int checkString(String[][] mass) {
         for (int i = 0; i < mass.length; i++) {
             for (int j = 0; j < 1; j++) {
                 if (mass[i][j] != null && mass[i][j + 1] != null && mass[i][j] == mass[i][j + 1] &&
                         mass[i][j + 2] == null) {
-                    return i*3+2;
+                    return i * 3 + 2;
                 }
                 if (mass[i][j] != null && mass[i][j + 2] != null && mass[i][j] == mass[i][j + 2] &&
                         mass[i][j + 1] == null) {
-                    return i*3+1;
+                    return i * 3 + 1;
                 }
-                if (mass[i][j + 1] != null && mass[i][j + 2] != null && mass[i][j + 1] == mass[i][j + 2] &&
-                        mass[i][j] == null) {
-                    return i*3;
+                if (mass[i][j + 1] != null && mass[i][j + 2] != null &&
+                        mass[i][j + 1] == mass[i][j + 2] && mass[i][j] == null) {
+                    return i * 3;
                 }
             }
         }
         return -1;
     }
 
-    private static int checkUp(String[][] mass) {
+    private int checkUp(String[][] mass) {
         for (int i = 0; i < mass.length; i++) {
             for (int j = 0; j < 1; j++) {
                 if (mass[j][i] != null && mass[j + 1][i] != null && mass[j][i] == mass[j + 1][i] &&
@@ -86,8 +82,8 @@ public class GameLogic_SinglePlayerManager extends CommonGameLogic {
                         mass[j + 1][i] == null) {
                     return 3 + i;
                 }
-                if (mass[j + 1][i] != null && mass[j + 2][i] != null && mass[j + 1][i] == mass[j + 2][i] &&
-                        mass[j][i] == null) {
+                if (mass[j + 1][i] != null && mass[j + 2][i] != null &&
+                        mass[j + 1][i] == mass[j + 2][i] && mass[j][i] == null) {
                     return i;
                 }
             }
@@ -95,12 +91,13 @@ public class GameLogic_SinglePlayerManager extends CommonGameLogic {
         return -1;
     }
 
-    private static int checkDiagonal(String[][] mass) {
+    private int checkDiagonal(String[][] mass) {
         if (mass[0][0] != null && mass[1][1] != null && mass[0][0] == mass[1][1] &&
                 mass[2][2] == null)
             return 8;
         if (((mass[0][0] != null && mass[2][2] != null && mass[0][0] == mass[2][2]) ||
-                (mass[0][2] != null && mass[2][0] != null && mass[0][2] == mass[2][0])) && mass[1][1] == null)
+                (mass[0][2] != null && mass[2][0] != null && mass[0][2] == mass[2][0])) &&
+                mass[1][1] == null)
             return 4;
         if (mass[1][1] != null && mass[2][2] != null && mass[1][1] == mass[2][2] &&
                 mass[0][0] == null)
@@ -115,7 +112,7 @@ public class GameLogic_SinglePlayerManager extends CommonGameLogic {
         return -1;
     }
 
-    private static boolean findDiagonalRight(String[][] mass) {
+    private boolean findDiagonalRight(String[][] mass) {
         String check = mass[0][mass.length - 1];
         for (int i = 0; i < mass.length; i++) {
             if (mass[i][mass.length - 1 - i] != null) {
