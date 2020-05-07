@@ -14,6 +14,7 @@ public class GameLogic_SinglePlayerManager extends CommonGameLogic {
         if (!win) {
             if (checkVolumeMass(massMain)) {
                 smartyComputer(massMain);
+                checkWinEnd(O);
             }
         }
     }
