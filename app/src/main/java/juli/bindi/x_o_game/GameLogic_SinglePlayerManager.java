@@ -24,16 +24,13 @@ public class GameLogic_SinglePlayerManager extends CommonGameLogic {
     }
 
     private void blockWin(String[][] mass, int a) {
-        int counter = 0;
-        for (String[] m : mass) {
-            int number = checkString(m);
-            if (number != a) {
-                setNumber(mass, number + counter);
-                updateText(O, number + 1 + counter);
-                enabledButton(number + 1 + counter);
-                return;
-            }
-            counter += 3;
+
+        int number = checkString(mass);
+        if (number != a) {
+            setNumber(mass, number);
+            updateText(O, number + 1);
+            enabledButton(number + 1);
+            return;
         }
 
         int numberUp = checkUp(mass);
@@ -58,19 +55,21 @@ public class GameLogic_SinglePlayerManager extends CommonGameLogic {
         checkWinEnd(O);
     }
 
-    private static int checkString(String[] mass) {
-        for (int i = 0; i < 1; i++) {
-            if (mass[i] != null && mass[i + 1] != null && mass[i] == mass[i + 1] &&
-                    mass[i + 2] == null) {
-                return 2;
-            }
-            if (mass[i] != null && mass[i + 2] != null && mass[i] == mass[i + 2] &&
-                    mass[i + 1] == null) {
-                return 1;
-            }
-            if (mass[i + 1] != null && mass[i + 2] != null && mass[i + 1] == mass[i + 2] &&
-                    mass[i] == null) {
-                return 0;
+    private static int checkString(String[][] mass) {
+        for (int i = 0; i < mass.length; i++) {
+            for (int j = 0; j < 1; j++) {
+                if (mass[i][j] != null && mass[i][j + 1] != null && mass[i][j] == mass[i][j + 1] &&
+                        mass[i][j + 2] == null) {
+                    return i*3+2;
+                }
+                if (mass[i][j] != null && mass[i][j + 2] != null && mass[i][j] == mass[i][j + 2] &&
+                        mass[i][j + 1] == null) {
+                    return i*3+1;
+                }
+                if (mass[i][j + 1] != null && mass[i][j + 2] != null && mass[i][j + 1] == mass[i][j + 2] &&
+                        mass[i][j] == null) {
+                    return i*3;
+                }
             }
         }
         return -1;
@@ -81,15 +80,15 @@ public class GameLogic_SinglePlayerManager extends CommonGameLogic {
             for (int j = 0; j < 1; j++) {
                 if (mass[j][i] != null && mass[j + 1][i] != null && mass[j][i] == mass[j + 1][i] &&
                         mass[j + 2][i] == null) {
-                    return (j + 2) * 3 + i;
+                    return 6 + i;
                 }
                 if (mass[j][i] != null && mass[j + 2][i] != null && mass[j][i] == mass[j + 2][i] &&
                         mass[j + 1][i] == null) {
-                    return (j + 1) * 3 + i;
+                    return 3 + i;
                 }
                 if (mass[j + 1][i] != null && mass[j + 2][i] != null && mass[j + 1][i] == mass[j + 2][i] &&
                         mass[j][i] == null) {
-                    return j * 3 + i;
+                    return i;
                 }
             }
         }
